@@ -21,11 +21,3 @@ namespace collisionsSAT
         }
     }
 }
-/*The texture passed to the method should have size 1xN where N is the thickness of my ine. I'll give an example further below but first an usage example:
-
-spriteBatch.Begin();
-spriteBatch.DrawLine(lineTexture, new Vector2(20, 20), new Vector2(120, 120));
-spriteBatch.DrawLine(lineTexture, new Vector2(120, 20), new Vector2(220, 60));
-spriteBatch.DrawLine(lineTexture, new Vector2(20, 240), new Vector2(220, 100));
-spriteBatch.End();
-*/

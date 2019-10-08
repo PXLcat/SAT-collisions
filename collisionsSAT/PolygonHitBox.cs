@@ -28,9 +28,13 @@ namespace collisionsSAT
 
         public void Draw(SpriteBatch spriteBatch, Texture2D segTexture)
         {
+            foreach (Vector2 sommet in sommets)
+            {
+                spriteBatch.Draw(segTexture, new Rectangle((int)sommet.X - 2, (int)sommet.Y - 2, 4, 4), Color.White);
+            }
             foreach (Arrete arrete in arretes)
             {
-                LineRenderer.DrawLine(spriteBatch, segTexture, arrete.sommets[0] , arrete.sommets[0]);
+                LineRenderer.DrawLine(spriteBatch, segTexture, arrete.sommets[0] , arrete.sommets[1]);
             }
             
         }
