@@ -19,6 +19,8 @@ namespace collisionsSAT
 
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+        public MouseState oldMouseState;
+
 
         Texture2D obj1Texture;
         Texture2D obj2Texture;
@@ -29,11 +31,6 @@ namespace collisionsSAT
 
         PolygonHitBox obj2 = new PolygonHitBox(new List<Vector2> { new Vector2(120, 180),
             new Vector2(310, 240), new Vector2(321, 200) });
-
-
-        Rectangle obj1Xprojection;
-        Rectangle obj1Yprojection;
-        Rectangle obj1Qprojection;
 
 
 
@@ -99,11 +96,17 @@ namespace collisionsSAT
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //obj1Xprojection = new Rectangle((int)obj1A.X, 0, (int)obj1B.X - (int)obj1A.X, 4);
-            //obj1Yprojection = new Rectangle(0, (int)obj1A.Y, 4, (int)obj1B.Y - (int)obj1A.Y);
-            //obj1Qprojection = new Rectangle(Tools.BaseProjectionVertexSurX(obj1A, obj1B), 0
-            //    , Tools.BaseProjectionVertexSurX(obj1B, obj1A) - Tools.BaseProjectionVertexSurX(obj1A, obj1B)
-            //    , 4);
+            MouseState newMouseState = Mouse.GetState();
+
+            if ((newMouseState.LeftButton == ButtonState.Pressed) && newMouseState != oldMouseState)
+            {
+                //clic
+                obj1.Update(newMouseState.Position);
+                obj2.Update(newMouseState.Position);
+            }
+
+            oldMouseState = newMouseState;
+
 
 
 #if DEBUG
@@ -129,42 +132,14 @@ namespace collisionsSAT
             obj2.Draw(spriteBatch, obj2Texture);
 
 
-            spriteBatch.Draw(obj1Texture, obj1Xprojection, Color.White * 0.5f);
-            spriteBatch.Draw(obj1Texture, obj1Yprojection, Color.White * 0.5f);
-            spriteBatch.Draw(projTexture, obj1Qprojection, Color.White * 0.5f);
-
-
 #if DEBUG
             spriteBatch.DrawString(Fonts.Instance.kenPixel16, mouseText ?? "", mouseTextPos, Color.Yellow);
-            //mainGame.spriteBatch.DrawString(Fonts.Instance.kenPixel16, cursorCarthPos.ToString(), Vector2.Zero, Color.Yellow);
-
 #endif
 
             spriteBatch.End();
 
             base.Draw(gameTime);
         }
-
-
-
-        //public getAngleAlpha 
-
-
-
-        //public bool CheckCollision(PolygonHitBox poly1, PolygonHitBox poly2)
-        //{
-        //    bool collision = false;
-
-        //    foreach (var item in collection)
-        //    {
-
-        //    }
-
-
-
-
-        //    return collision;
-        //}
 
 
     }
